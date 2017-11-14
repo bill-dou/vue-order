@@ -5,10 +5,10 @@
         <el-tabs type="card">
           <el-tab-pane label="点餐">
             <el-table :data="tableData" border show-summary style="width: 100%">
-              <el-table-column prop="goodsName" label="商品" width="220" align="center"></el-table-column>
-              <el-table-column prop="count" label="数量" width="60" align="center"></el-table-column>
-              <el-table-column prop="price" label="金额" width="70" align="center"></el-table-column>
-              <el-table-column label="操作" width="180" fixed="right">
+              <el-table-column prop="goodsName" label="商品" align="center"></el-table-column>
+              <el-table-column prop="count" sortable label="数量" align="center"></el-table-column>
+              <el-table-column prop="price" sortable label="金额" align="center"></el-table-column>
+              <el-table-column label="操作" width="160" fixed="right">
                 <template slot-scope="scope">
                   <el-button type="primary" size="mini">删除</el-button>
                   <el-button type="success" size="mini">增加</el-button>
@@ -37,9 +37,9 @@
             </ul>
           </div>
         </div>
-        <el-tabs type="card">
+        <el-tabs type="card" class="food-gate">
           <el-tab-pane label="汉堡">
-            <ul class='cookList'>
+            <ul class='cook-list'>
               <li v-for="food in type0Goods">
                 <p class="foodImg">
                   <img :src="food.goodsImg" width="100%">
@@ -59,8 +59,12 @@
 </template>
 
 <script>
-  function setGoodsHeight(){
-    
+import axios from 'axios'
+  function setGoodsHeight() {
+    var foodGate = document.getElementsByClassName("food-gate"),
+      cookList = document.getElementsByClassName("cook-list")[0];
+    var foodListHeight = window.innerHeight - foodGate[0].offsetTop - 60;
+    cookList.style.height = foodListHeight + "px"
   }
   export default {
     name: "Pos",
@@ -186,10 +190,7 @@
       };
     },
     mounted: function () {
-      resize()
-      window.onresize = function () {
-        resize()
-      }
+      setGoodsHeight()
     },
   };
 
@@ -245,13 +246,13 @@
     color: #58B7FF;
   }
 
-  .cookList {
+  .cook-list {
     margin: 0;
     overflow: auto;
     height: 500px;
   }
 
-  .cookList li {
+  .cook-list li {
     list-style: none;
     width: 23%;
     border: 1px solid #E5E9F2;
@@ -263,11 +264,10 @@
     padding: 0 30px;
   }
 
-  .cookList li p {
+  .cook-list li p {
     margin: 0;
     text-align: center;
   }
-
 
   .foodName {
     font-size: 18px;

@@ -10,8 +10,8 @@
           <el-table-column label="操作" width="220" fixed="right">
             <template slot-scope="scope">
               <el-button type="danger" size="mini" @click="delSingleGoods(scope.row)">C</el-button>
-              <el-button type="primary" size="mini" @click="reduceSingleGoods(scope.row)">-</el-button>
-              <el-button type="success" size="mini" @click="addOrderList(scope.row)">+</el-button>
+              <el-button type="primary" size="mini" @click="reduceSingleGoods(scope.row)">-1</el-button>
+              <el-button type="success" size="mini" @click="addOrderList(scope.row)">+1</el-button>
             </template>
           </el-table-column>
         </el-table>

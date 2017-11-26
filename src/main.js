@@ -7,11 +7,14 @@ import router from './router'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+import vuex from './vuex/'
+
 Vue.config.productionTip = false
 Vue.use(Element)
 
 /* eslint-disable no-new */
 new Vue({
+  vuex,
   el: '#app',
   router,
   template: '<App/>',

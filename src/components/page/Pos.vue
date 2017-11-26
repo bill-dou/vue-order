@@ -180,6 +180,7 @@ export default {
     },
     checkout() {
       if (this.totalCount != 0) {
+        console.log(this.tableData)
         this.delAllGoods();
         this.$message({
           message: "结账成功，感谢你又为店里出了一份力!",

@@ -10,12 +10,14 @@ export default new Router({
     {
       path: '/',
       name: 'Pos',
-      component: Pos
+      component: Pos,
+      meta: { keepAlive: true }
     },
     {
       path: '/Pos',
       name: 'Pos',
-      component: Pos
+      component: Pos,
+      meta: { keepAlive: true }
     },
     {
       path: '/Chart',

@@ -85,6 +85,7 @@
 
 <script>
 import axios from "axios";
+import store from "@/vuex/";
 export default {
   name: "Pos",
   data() {
@@ -109,14 +110,8 @@ export default {
     addOrderList(goods) {
       this.totalCount = 0;
       this.totalMoney = 0;
-      let isExited = 0;
       //判断商品是否存在于订单列表
-      for (let i = 0; i < this.tableData.length; i++) {
-        const g = this.tableData[i];
-        if (g.goodsId == goods.goodsId) {
-          isExited = true;
-        }
-      }
+      let isExited=this.tableData.some(o=>o.goodsId == goods.goodsId)
       if (isExited) {
         //存在就++
         let arr = this.tableData.filter(o => o.goodsId == goods.goodsId);
@@ -180,7 +175,7 @@ export default {
     },
     checkout() {
       if (this.totalCount != 0) {
-        console.log(this.tableData)
+        store.commit('INCREMENT', this.tableData)
         this.delAllGoods();
         this.$message({
           message: "结账成功，感谢你又为店里出了一份力!",

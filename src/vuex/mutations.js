@@ -3,33 +3,35 @@ import {
 } from './types'
 import getters from './getters'
 
-const state={
-    sales:[{
-        goodsId: 101,
-        goodsName: '香辣鸡腿堡0',
-        price: 50,
-        count: 2
-    },{
-        goodsId: 102,
-        goodsName: '香辣鸡腿堡1',
-        price: 40,
-        count: 5
-    },{
-        goodsId: 103,
-        goodsName: '香辣鸡腿堡2',
-        price: 30,
-        count: 3
-    }]
+const state = {
+  sales: []
 }
 
-const mutations={
-    [INCREMENT](state){
-        state.count++;
-    }
+const mutations = {
+  //添加一单
+  [INCREMENT](state, data) {
+    const sales = state.sales
+    data.forEach(ele => {
+      let isExited = sales.some(o => o.goodsId == ele.goodsId)
+      if (isExited) {
+        let arr = sales.filter(o => o.goodsId == ele.goodsId);
+        arr[0].count += ele.count;
+      } else {
+        let newGoods = {
+          goodsId: ele.goodsId,
+          goodsName: ele.goodsName,
+          price: Number.parseInt(ele.price.substring(0, ele.price.length - 1)),
+          count: ele.count
+        };
+        sales.push(newGoods);
+      }
+    })
+
+  }
 }
 
-export default{
-    getters,
-    state,
-    mutations
+export default {
+  getters,
+  state,
+  mutations
 }

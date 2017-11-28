@@ -10,7 +10,7 @@ export default {
   name: "echart",
   data() {
     return {
-      msg: "wel"
+      seriesData: [15, 20, 36, 11]
     };
   },
   mounted() {
@@ -60,7 +60,7 @@ export default {
                 color: "#4da9ff"
               }
             },
-            data: [15, 20, 36, 10]
+            data: this.seriesData
           }
         ]
       });

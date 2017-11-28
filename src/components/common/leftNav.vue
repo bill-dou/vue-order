@@ -1,7 +1,7 @@
 <template>
   <div class="left-nav">
     <ul>
-      <router-link to="/Pos">
+      <router-link to="/">
         <li>
           <i class="icon iconfont icon-wodezichan"></i>
           <p>收银</p>

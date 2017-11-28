@@ -2,7 +2,7 @@
   <div class="pos">
     <el-row>
       <el-col :span='10' class="pos-order">
-        <el-table :data="tableData" border show-summary style="width: 100%">
+        <el-table :data="tableDataShow" border show-summary style="width: 100%">
           <el-table-column prop="goodsName" label="商品" align="center"></el-table-column>
           <el-table-column prop="price" sortable label="单价" align="center"></el-table-column>
           <el-table-column prop="count" sortable label="数量" align="center"></el-table-column>
@@ -104,6 +104,14 @@ export default {
     isFoodHas(){
       if(this.tableData.length==0) return false
       return true
+    },
+    tableDataShow:function() {
+      let table=JSON.parse(JSON.stringify(this.tableData))
+      table.forEach(element => {
+        element.totalPrice = element.price*element.count;
+        element.price = element.price + "元";
+      });
+      return table;
     }
   },
   methods: {
@@ -116,16 +124,14 @@ export default {
         //存在就++
         let arr = this.tableData.filter(o => o.goodsId == goods.goodsId);
         arr[0].count++;
-        arr[0].totalPrice =
-          arr[0].count * arr[0].price.substr(0, arr[0].price.length - 1);
       } else {
         //不存在就新建一个
         let newGoods = {
           goodsId: goods.goodsId,
           goodsName: goods.goodsName,
-          price: goods.price + "元",
-          count: 1,
-          totalPrice: goods.price
+          goodsCate: goods.goodsCate,
+          price: goods.price,
+          count: 1
         };
         this.tableData.push(newGoods);
       }
@@ -145,8 +151,6 @@ export default {
         return;
       }
       arr[0].count--;
-      arr[0].totalPrice =
-        arr[0].count * arr[0].price.substr(0, arr[0].price.length - 1);
 
       //进行数量和价格的汇总计算
       this.tableData.forEach(element => {
@@ -195,7 +199,7 @@ export default {
         this.oftenGoods = response.data;
       })
       .catch(error => {
-        alert("sth wrong");
+        this.$message.error("找不到常用商品数据！");
       });
     axios
       .get(
@@ -206,14 +210,10 @@ export default {
         this.type1Goods = response.data[1];
         this.type2Goods = response.data[2];
         this.type3Goods = response.data[3];
-        this.type0Goods.forEach(item => (item.totalPrice = 0));
-        this.type1Goods.forEach(item => (item.totalPrice = 0));
-        this.type2Goods.forEach(item => (item.totalPrice = 0));
-        this.type3Goods.forEach(item => (item.totalPrice = 0));
       })
       .catch(error => {
         console.log(error);
-        alert("网络错误，不能访问");
+        this.$message.error("网络错误，不能访问");
       });
   }
 };

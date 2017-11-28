@@ -20,7 +20,8 @@ const mutations = {
         let newGoods = {
           goodsId: ele.goodsId,
           goodsName: ele.goodsName,
-          price: Number.parseInt(ele.price.substring(0, ele.price.length - 1)),
+          goodsCate: ele.goodsCate,
+          price: ele.price,
           count: ele.count
         };
         sales.push(newGoods);

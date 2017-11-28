@@ -1,5 +1,5 @@
 export default{
-    count:(state)=>{
-        return state.count;
+    category:(state)=>{
+        return state.sales;
     }
 }

@@ -7,6 +7,7 @@
 <script>
 import echartCategory from '@/components/common/echartCategory'
 import echartCategoryStack from '@/components/common/echartCategoryStack'
+import store from "@/vuex/";
 export default {
   name: "charts",
   components: {

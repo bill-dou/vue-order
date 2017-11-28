@@ -9,9 +9,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Pos',
-      component: Pos,
-      meta: { keepAlive: true }
+      redirect: '/Pos'
     },
     {
       path: '/Pos',
